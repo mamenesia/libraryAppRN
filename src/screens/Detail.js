@@ -27,55 +27,64 @@ class Detail extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Image
-          style={styles.imageHeader}
-          source={{
-            uri:
-              'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-          }}
-        />
-        <Header span transparent style={styles.header}>
-          <Left style={styles.backButton}>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body style={styles.headerText}>
-            <Title style={styles.headerTitle}>The Promises</Title>
-            <Text style={styles.headerDate}>02-20-2020</Text>
-          </Body>
-        </Header>
-        <View style={styles.cardBook}>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-          </Card>
-        </View>
-
-        <View style={styles.detail}>
-          <View>
-            <Text style={styles.detailText}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa
-              nobis dolore obcaecati. Repudiandae quis autem consectetur quos
-              expedita voluptas veritatis similique iste, illo rem
-              necessitatibus tempora temporibus nam nulla ducimus numquam amet.
-              Suscipit vel quod veniam molestias natus! Ducimus, fuga. Aliquid
-              molestias placeat sit optio ad nisi recusandae quis ipsa!
-            </Text>
-            <View>
-              <Button style={styles.actionButton}>
-                <Text style={styles.actionButtonText}> Borrow </Text>
+        <ScrollView>
+          <Image
+            style={styles.imageHeader}
+            source={{
+              uri:
+                'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
+            }}
+          />
+          <View span transparent>
+            <Left style={styles.backButton}>
+              <Button
+                transparent
+                onPress={() => this.props.navigation.goBack()}>
+                <Icon style={{color: 'white'}} name="arrow-back" />
               </Button>
+            </Left>
+            <Body style={styles.headerText}>
+              <Title style={styles.headerTitle}>The Promises</Title>
+              <Text style={styles.headerDate}>02-20-2020</Text>
+            </Body>
+          </View>
+          <View style={styles.cardBook}>
+            <Card>
+              <CardItem cardBody>
+                <Image
+                  style={styles.cardBookImage}
+                  source={{
+                    uri:
+                      'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                  }}
+                />
+              </CardItem>
+            </Card>
+          </View>
+          <View style={styles.detail}>
+            <View>
+              <Text style={styles.detailText}>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat
+                sapiente nostrum unde architecto cumque totam accusamus. Maiores
+                ad itaque aspernatur quisquam. Ipsam, vitae ad. Beatae similique
+                vero aperiam vitae accusamus explicabo maxime veritatis sequi
+                assumenda sit! Nihil necessitatibus laudantium odit iure eos
+                repudiandae, pariatur sequi reprehenderit? Alias doloribus
+                quibusdam nostrum placeat, dolores delectus mollitia eos quis
+                hic cumque ipsam quaerat error dicta fugit quam fugiat at esse,
+                molestiae rerum voluptatibus, illo ullam laborum corporis nihil.
+                Quas, iure debitis exercitationem adipisci soluta amet? Quisquam
+                nesciunt nam, assumenda iure nobis voluptatum mollitia qui hic
+                doloribus unde quaerat, molestias iste cupiditate tempora. Ea?
+              </Text>
+              <View>
+                <Button style={styles.actionButton}>
+                  <Text style={styles.actionButtonText}> Borrow </Text>
+                </Button>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -92,18 +101,19 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     backgroundColor: 'black',
   },
-  header: {position: 'relative'},
   backButton: {
     position: 'absolute',
     left: 19,
-    top: 30,
+    top: 20,
   },
   headerText: {
-    position: 'absolute',
+    // position: 'absolute',
     width: 197,
     height: 44,
-    left: 29,
-    top: 230,
+    // left: 10,
+    // top: 200,
+    marginTop: 220,
+    marginLeft: -200,
   },
   headerTitle: {
     fontFamily: 'Airbnb Cereal App',
@@ -130,11 +140,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   detail: {
-    position: 'absolute',
-    width: 'auto',
-    left: 29,
-    right: 29,
-    top: 350,
+    // position: 'absolute',
+    // width: 'auto',
+    // left: 29,
+    // right: 29,
+    // top: 350,
+    marginTop: 100,
+    marginHorizontal: 29,
   },
   detailText: {
     fontFamily: 'Airbnb Cereal App',
@@ -152,7 +164,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.25,
     shadowRadius: 20,
-    marginTop: 36,
+    marginVertical: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
   },

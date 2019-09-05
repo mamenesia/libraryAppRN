@@ -10,7 +10,7 @@ class History extends Component {
     return (
       <View style={styles.screen}>
         <Image source={historyImg} />
-        <Text>The History Screen!</Text>
+        <Text style={styles.notice}>The History is Empty!</Text>
       </View>
     );
   }
@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  notice: {
+    fontFamily: 'Airbnb Cereal App',
+    fontSize: 18,
+    lineHeight: 23,
+    color: '#303031',
   },
 });
 

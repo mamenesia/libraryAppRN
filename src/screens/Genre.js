@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import {
-  Container,
-  Item,
-  Input,
-  Icon,
-  Title,
-  Body,
-  Card,
-  CardItem,
-  Left,
-} from 'native-base';
+import {Card, CardItem, Left} from 'native-base';
 import {Rating} from 'react-native-ratings';
 
 class Genre extends Component {

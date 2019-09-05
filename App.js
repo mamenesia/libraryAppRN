@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet} from 'react-native';
+// import {Image, StyleSheet} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -65,9 +65,10 @@ const AppNavigator = createBottomTabNavigator(
     History: {screen: History},
     Profile: ProfileStack,
     Genre: Genre,
+    Detail: Detail,
   },
   {
-    initialRouteName: 'History',
+    initialRouteName: 'Detail',
     tabBarPosition: 'bottom',
     activeColor: 'blue',
     inactiveColor: 'black',
@@ -106,6 +107,14 @@ const AppNavigator = createBottomTabNavigator(
               onPress={() => props.navigation.navigate('Genre')}>
               <Icon type="FontAwesome" name="user-circle" />
               <Text>Genre</Text>
+            </Button>
+            <Button
+              light
+              vertical
+              // active={props.navigationState.index == 2}
+              onPress={() => props.navigation.navigate('Detail')}>
+              <Icon type="FontAwesome" name="user-circle" />
+              <Text>Detail</Text>
             </Button>
           </FooterTab>
         </Footer>

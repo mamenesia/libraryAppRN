@@ -1,40 +1,22 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import {
-  Container,
-  Item,
-  Input,
-  Icon,
-  Title,
-  Body,
-  Card,
-  CardItem,
-  Left,
-} from 'native-base';
+import {Text, StyleSheet} from 'react-native';
+import {Body, Card, CardItem} from 'native-base';
 
 class GenreCard extends Component {
   render() {
     return (
-      <Container>
-        <Card style={styles.cardGenre}>
-          <CardItem cardBody>
-            <Body style={styles.genreTitle}>
-              <Text style={styles.genreTitleText}>{this.props.genre}</Text>
-            </Body>
-          </CardItem>
-        </Card>
-      </Container>
+      <Card transparent style={styles.cardGenre}>
+        <CardItem cardBody>
+          <Body style={styles.genreTitle}>
+            <Text style={styles.genreTitleText}>{this.props.name}</Text>
+          </Body>
+        </CardItem>
+      </Card>
     );
   }
 }
 
+export default GenreCard;
 const styles = StyleSheet.create({
   cardGenre: {
     position: 'relative',
@@ -62,5 +44,3 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 });
-
-export default GenreCard;

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Container,
@@ -20,111 +21,195 @@ import {
 } from 'native-base';
 import {Rating} from 'react-native-ratings';
 
+import GenreCard from '../components/GenreCard';
+
 class Home extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const backgroundColors = [
-      {backgroundColor: '#9AF833'},
-      {backgroundColor: '#9A2B6B', backgroundColor},
-    ];
     return (
-      <View>
-        <Container style={styles.container}>
-          <Body style={styles.brand}>
-            <Title style={styles.headerText}>Library App</Title>
-          </Body>
-          <Item rounded transparent style={styles.searchBar}>
-            <Icon name="ios-search" />
-            <Input placeholder="Search" />
-          </Item>
+      <SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Container style={styles.container}>
+            <Body style={styles.brand}>
+              <Title style={styles.headerText}>Library App</Title>
+            </Body>
+            <Item rounded style={styles.searchBar}>
+              <Icon name="ios-search" />
+              <Input placeholder="Search" />
+            </Item>
+          </Container>
           <ScrollView
             horizontal={true}
             style={styles.genreContainer}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}>
-            <Card style={styles.cardGenre}>
-              <CardItem cardBody>
-                <Body style={styles.genreTitle}>
-                  <Text style={styles.genreTitleText}>Novel</Text>
-                </Body>
-              </CardItem>
-            </Card>
-            <Card style={styles.cardGenre}>
-              <CardItem cardBody>
-                <Body style={styles.genreTitle}>
-                  <Text style={styles.genreTitleText}>Action</Text>
-                </Body>
-              </CardItem>
-            </Card>
-            <Card style={styles.cardGenre}>
-              <CardItem cardBody>
-                <Body style={styles.genreTitle}>
-                  <Text style={styles.genreTitleText}>Romance</Text>
-                </Body>
-              </CardItem>
-            </Card>
+            <TouchableOpacity>
+              <GenreCard name="Novel" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <GenreCard name="Action" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <GenreCard name="Biography" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <GenreCard name="Motivation" />
+            </TouchableOpacity>
           </ScrollView>
-        </Container>
-        <View style={styles.popularContainer}>
-          <Text style={styles.popular}>Popular Books</Text>
-          <View style={styles.bookContainer}>
-            <Card>
-              <CardItem cardBody>
-                <Image
-                  style={styles.cardBookImage}
-                  source={{
-                    uri:
-                      'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                  }}
-                />
-              </CardItem>
-              <CardItem>
-                <Left>
-                  <Text>The Beekeeper</Text>
-                </Left>
-              </CardItem>
-              <CardItem style={styles.rating}>
-                <Left>
-                  <Rating
-                    type="star"
-                    startingValue={5}
-                    ratingCount={5}
-                    imageSize={13}
-                  />
-                </Left>
-              </CardItem>
-            </Card>
-            <Card>
-              <CardItem cardBody>
-                <Image
-                  style={styles.cardBookImage}
-                  source={{
-                    uri:
-                      'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                  }}
-                />
-              </CardItem>
-              <CardItem>
-                <Left>
-                  <Text>Drowning</Text>
-                </Left>
-              </CardItem>
-              <CardItem style={styles.rating}>
-                <Left>
-                  <Rating
-                    type="star"
-                    startingValue={5}
-                    ratingCount={5}
-                    imageSize={13}
-                  />
-                </Left>
-              </CardItem>
-            </Card>
-          </View>
-        </View>
-      </View>
+          <Container style={styles.popularContainer}>
+            <Text style={styles.popular}>Popular Books</Text>
+            <View style={{flex: 1, height: 250}}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}>
+                <TouchableOpacity>
+                  <Card style={styles.cardBook}>
+                    <CardItem cardBody>
+                      <Image
+                        style={styles.cardBookImage}
+                        source={{
+                          uri:
+                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                        }}
+                      />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Text>Drowning</Text>
+                      </Left>
+                    </CardItem>
+                    <CardItem style={styles.rating}>
+                      <Left>
+                        <Rating
+                          type="star"
+                          startingValue={5}
+                          ratingCount={5}
+                          imageSize={13}
+                        />
+                      </Left>
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Card style={styles.cardBook}>
+                    <CardItem cardBody>
+                      <Image
+                        style={styles.cardBookImage}
+                        source={{
+                          uri:
+                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                        }}
+                      />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Text>Drowning</Text>
+                      </Left>
+                    </CardItem>
+                    <CardItem style={styles.rating}>
+                      <Left>
+                        <Rating
+                          type="star"
+                          startingValue={5}
+                          ratingCount={5}
+                          imageSize={13}
+                        />
+                      </Left>
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Card style={styles.cardBook}>
+                    <CardItem cardBody>
+                      <Image
+                        style={styles.cardBookImage}
+                        source={{
+                          uri:
+                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                        }}
+                      />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Text>Drowning</Text>
+                      </Left>
+                    </CardItem>
+                    <CardItem style={styles.rating}>
+                      <Left>
+                        <Rating
+                          type="star"
+                          startingValue={5}
+                          ratingCount={5}
+                          imageSize={13}
+                        />
+                      </Left>
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Card style={styles.cardBook}>
+                    <CardItem cardBody>
+                      <Image
+                        style={styles.cardBookImage}
+                        source={{
+                          uri:
+                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                        }}
+                      />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Text>Drowning</Text>
+                      </Left>
+                    </CardItem>
+                    <CardItem style={styles.rating}>
+                      <Left>
+                        <Rating
+                          type="star"
+                          startingValue={5}
+                          ratingCount={5}
+                          imageSize={13}
+                        />
+                      </Left>
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Card style={styles.cardBook}>
+                    <CardItem cardBody>
+                      <Image
+                        style={styles.cardBookImage}
+                        source={{
+                          uri:
+                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                        }}
+                      />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Text>Drowning</Text>
+                      </Left>
+                    </CardItem>
+                    <CardItem style={styles.rating}>
+                      <Left>
+                        <Rating
+                          type="star"
+                          startingValue={5}
+                          ratingCount={5}
+                          imageSize={13}
+                        />
+                      </Left>
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          </Container>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -159,41 +244,12 @@ const styles = StyleSheet.create({
     color: '#303031',
   },
   genreContainer: {
-    position: 'absolute',
-    left: 28,
-    top: 97,
-    right: 28,
-  },
-  cardGenre: {
-    position: 'relative',
-    width: 250,
-    height: 120,
-    marginRight: 28,
-    backgroundColor: '#28BFDB',
-    borderRadius: 10,
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
-    shadowColor: '#2c2c2c',
-    shadowOffset: {height: 0, width: 4},
-  },
-  genreTitle: {
-    position: 'absolute',
-    top: 45,
-    left: 22,
-    backgroundColor: 'transparent',
-  },
-  genreTitleText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-    fontFamily: 'Airbnb Cereal App',
-    lineHeight: 20,
+    marginTop: -550,
+    marginBottom: 20,
+    marginHorizontal: 29,
   },
   popularContainer: {
-    position: 'absolute',
-    left: 29,
-    right: 29,
-    top: 270,
+    marginHorizontal: 29,
   },
   popular: {
     fontFamily: 'Airbnb Cereal App',
@@ -211,8 +267,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     // paddingRight: 20,
   },
+  cardBook: {
+    marginRight: 28,
+    borderRadius: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    shadowColor: '#2c2c2c',
+    shadowOffset: {height: 0, width: 4},
+  },
   cardBookImage: {
-    width: 140,
+    width: 145,
     height: 180,
     borderRadius: 5,
   },
