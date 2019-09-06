@@ -18,3 +18,22 @@ export const getBooks = (
     ),
   };
 };
+export const rentBook = (book_id, user_id) => {
+  return {
+    type: 'RENT_BOOK',
+    payload: Axios.patch(`http://192.168.56.1:8080/books/rent/${book_id}`, {
+      // payload: Axios.patch(`https://remotemysql.com:3306/books/rent/${book_id}`, {
+      user_id,
+    }),
+  };
+};
+
+export const returnBook = (book_id, user_id) => {
+  return {
+    type: 'RETURN_BOOK',
+    payload: Axios.patch(`http://192.168.56.1:8080/books/return/${book_id}`, {
+      // payload: Axios.patch(`https://remotemysql.com:3306/books/return/${book_id}`, {
+      user_id,
+    }),
+  };
+};

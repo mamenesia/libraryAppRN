@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, Alert, ScrollView} from 'react-native';
 import {
   Container,
   Content,
@@ -10,6 +10,7 @@ import {
   Button,
   Icon,
 } from 'native-base';
+import {register} from '../public/actions/user';
 
 class Register extends Component {
   constructor(props) {
@@ -20,36 +21,84 @@ class Register extends Component {
       password: '',
     };
   }
+
+  handleSubmit = async () => {
+    const {username, email, password} = this.state;
+    await this.props
+      .dispatch(register(username, email, password))
+      .then(res => {
+        if (res.action.payload.data.status == 200) {
+          Alert.alert(
+            `${res.action.payload.data.message}`,
+            [
+              {
+                text: 'OK',
+                onPress: () => this.props.navigation.native('Login'),
+              },
+            ],
+            {cancelable: false},
+          );
+        } else {
+          this.setState({username: '', email: '', password: ''});
+          Alert.alert(`${res.action.payload.data.message}`);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
   render() {
     return (
-      <Container>
-        <Text style={styles.header}>Create an Account, Join Us Today !</Text>
-        <Content style={styles.form}>
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input />
-            </Item>
-          </Form>
-        </Content>
-        <Button rounded dark style={styles.signUpButton}>
-          <Icon type="FontAwesome" name="arrow-right" />
-        </Button>
-        <Text
-          style={styles.login}
-          onPress={() => this.props.navigation.navigate('Login')}>
-          Login
-        </Text>
-        <Text style={styles.remark}>Book is window to the world</Text>
-      </Container>
+      <ScrollView>
+        <Container>
+          <Text style={styles.header}>Create an Account, Join Us Today !</Text>
+          <Content style={styles.form}>
+            <Form onSubmit={this.handleSubmit}>
+              <Item floatingLabel>
+                <Label>Username</Label>
+                <Input
+                  autoFocus={true}
+                  onChangeText={text => this.setState({username: text})}
+                  value={this.state.username}
+                />
+              </Item>
+              <Item floatingLabel>
+                <Label>Email</Label>
+                <Input
+                  autoFocus={true}
+                  onChangeText={text => this.setState({email: text})}
+                  value={this.state.email}
+                />
+              </Item>
+              <Item floatingLabel last>
+                <Label>Password</Label>
+                <Input
+                  secureTextEntry={true}
+                  onChangeText={text =>
+                    this.setState({
+                      password: text,
+                    })
+                  }
+                  value={this.state.password}
+                />
+              </Item>
+            </Form>
+          </Content>
+          <Button
+            rounded
+            dark
+            style={styles.signUpButton}
+            onPress={this.handleSubmit}>
+            <Icon type="FontAwesome" name="arrow-right" />
+          </Button>
+          <Text
+            style={styles.login}
+            onPress={() => this.props.navigation.navigate('Login')}>
+            Login
+          </Text>
+          <Text style={styles.remark}>Book is window to the world</Text>
+        </Container>
+      </ScrollView>
     );
   }
 }

@@ -28,7 +28,13 @@ class Genre extends Component {
         <View style={styles.bookContainer}>
           {books.map((item, index) => {
             return (
-              <TouchableOpacity key={index}>
+              <TouchableOpacity
+                key={index}
+                onPress={() =>
+                  this.props.navigation.navigate('Detail', {
+                    book_id: item.book_id,
+                  })
+                }>
                 <BookCard title={item.title} imageUri={item.image_url} />
               </TouchableOpacity>
             );

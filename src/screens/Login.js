@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, Alert, ScrollView} from 'react-native';
 import {
   Container,
   Content,
@@ -12,6 +12,7 @@ import {
 } from 'native-base';
 import {connect} from 'react-redux';
 import {login} from '../public/actions/user';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
   constructor(props) {
@@ -20,55 +21,86 @@ class Login extends Component {
       username: '',
       password: '',
     };
-    this.handleUsername = this.handleUsername.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleUsername = e => {
-    this.setState({username: e.target.value});
-  };
-  handlePassword = e => {
-    this.setState({password: e.target.value});
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
+  handleSubmit = async () => {
     const {username, password} = this.state;
     await this.props.dispatch(login(username, password));
+    // .then(async res => {
+    //   if (res.action.payload.data.status === 400) {
+    //     this.setState({username: '', password: ''});
+    //     Alert.alert(`${res.action.payload.data.message}`);
+    //   } else if (res.action.payload.data.status === 200) {
+    //     const token = res.action.payload.data.token;
+    //     await AsyncStorage.setItem('token', token, err => console.log(err));
+    //     Alert.alert(`${res.action.payload.data.message}`);
+    //     this.props.navigation.navigate('Home');
+    //   } else {
+    //     this.setState({username: '', password: ''});
+    //     Alert.alert("Username or Email doesn'nt exist!");
+    //   }
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    // });
   };
 
-  component;
+  async componentDidMount() {
+    let checkToken = await AsyncStorage.getItem('token', (err, res) => {
+      console.log(err, res);
+    });
+    if (checkToken !== null) {
+      this.props.navigation.navigate('Profile');
+    }
+  }
   render() {
     return (
-      <Container>
-        <Text style={styles.header}>Here To Get Welcomed !</Text>
-        <Content style={styles.form}>
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input onChangeText={() => this.handleUsername} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input onChangeText={() => this.handlePassword} />
-            </Item>
-          </Form>
-        </Content>
-        <Button
-          rounded
-          dark
-          style={styles.signInButton}
-          onPress={() => this.handleSubmit}>
-          <Icon type="FontAwesome" name="arrow-right" />
-        </Button>
-        <Text
-          style={styles.signup}
-          onPress={() => this.props.navigation.navigate('Register')}>
-          Sign Up
-        </Text>
-        <Text style={styles.forgotPassword}>Forgot Password ?</Text>
-      </Container>
+      <ScrollView>
+        <Container>
+          <Text style={styles.header}>Here To Get Welcomed !</Text>
+          <Content style={styles.form}>
+            <Form onSubmit={this.handleSubmit}>
+              <Item floatingLabel>
+                <Label>Username</Label>
+                <Input
+                  required
+                  autoFocus={true}
+                  onChangeText={text => this.setState({username: text})}
+                  value={this.state.username}
+                />
+              </Item>
+              <Item floatingLabel last>
+                <Label>Password</Label>
+                <Input
+                  required
+                  secureTextEntry={true}
+                  onChangeText={text =>
+                    this.setState({
+                      password: text,
+                    })
+                  }
+                  value={this.state.password}
+                />
+              </Item>
+            </Form>
+          </Content>
+          <Button
+            rounded
+            dark
+            style={styles.signInButton}
+            onPress={this.handleSubmit}>
+            <Icon type="FontAwesome" name="arrow-right" />
+          </Button>
+          <Text
+            style={styles.signup}
+            onPress={() => this.props.navigation.navigate('Register')}>
+            Sign Up
+          </Text>
+          <Text style={styles.forgotPassword}>Forgot Password ?</Text>
+        </Container>
+      </ScrollView>
     );
   }
 }

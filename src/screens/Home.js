@@ -36,7 +36,7 @@ class Home extends Component {
       genres: [],
       search: '',
     };
-    this.handleSearch = this.handleSearch.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -49,13 +49,8 @@ class Home extends Component {
     this.setState({genres: this.props.genres.genreList});
   };
 
-  handleSearch = e => {
-    this.setState({search: e.target.value});
-  };
-
-  handleSubmit = e => {
-    e.preventDefault;
-    this.props.navitagion.navigate('Search', {search: this.state.search});
+  handleSubmit = () => {
+    this.props.navigation.navigate('Search', {search: this.state.search});
   };
   render() {
     const {books, genres} = this.state;
@@ -87,14 +82,14 @@ class Home extends Component {
             <Body style={styles.brand}>
               <Title style={styles.headerText}>Library App</Title>
             </Body>
-            <Form onSubmit={() => this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <Item rounded style={styles.searchBar}>
-                <Button transparent onPress={() => this.handleSubmit}>
+                <Button transparent onPress={this.handleSubmit}>
                   <Icon name="ios-search" />
                 </Button>
                 <Input
                   placeholder="Search"
-                  onChangeText={() => this.handleSearch}
+                  onChangeText={text => this.setState({search: text})}
                 />
               </Item>
             </Form>

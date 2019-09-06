@@ -9,17 +9,74 @@ import {
 } from 'react-native';
 import {Left, Body, Button, Icon, Title, Card, CardItem} from 'native-base';
 import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import decode from 'jwt-decode';
+import {getHistory} from '../public/actions/history';
+import {rentBook, returnBook} from '../public/actions/books';
 
 class Detail extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      token: '',
+      user: '',
+      history: [],
+    };
+    this.handleBorrow = this.handleBorrow.bind(this);
+    this.handleReturn = this.handleReturn.bind(this);
   }
+  componentDidMount = async () => {
+    await this.props.dispatch(getHistory());
+    let token = await AsyncStorage.getItem('token', (err, res) => {
+      if (!err) {
+        return res;
+      } else {
+        return null;
+      }
+    });
+    this.setState({token: token});
+    const user = decode(this.state.token);
+    this.setState({user: user});
+    const book_id = this.props.navigation.getParam('book_id');
+    this.setState({book_id: book_id});
+    const book = this.props.books.bookList.filter(
+      item => item.book_id == book_id,
+    )[0];
+    this.setState({book: book});
+    if (this.state.token) {
+      const book_id = this.state.book_id;
+      this.setState({
+        history: this.props.history.historyData.filter(history => {
+          return (
+            history.book_id == book_id &&
+            history.user_id == user.id &&
+            history.return_at == 'false'
+          );
+        }),
+      });
+    }
+  };
+
+  handleBorrow = async () => {
+    const user_id = this.state.user.id;
+    const book_id = this.state.book_id;
+    await this.props.dispatch(rentBook(book_id, user_id));
+    // this.props.navigation.navigate('Detail', {book_id: book_id});
+  };
+  handleReturn = async () => {
+    const user_id = this.state.user.id;
+    const book_id = this.state.book_id;
+    await this.props.dispatch(returnBook(book_id, user_id));
+    // this.props.navigation.navigate('Detail', {book_id: book_id});
+  };
+
   render() {
+    const {history} = this.state;
     const book_id = this.props.navigation.getParam('book_id');
     const book = this.props.books.bookList.filter(
       item => item.book_id == book_id,
     )[0];
-    console.log(book);
+    // console.log(book);
     return (
       <SafeAreaView>
         <ScrollView>
@@ -40,7 +97,7 @@ class Detail extends Component {
             <Body style={styles.headerText}>
               <Title style={styles.headerTitle}>{book.title}</Title>
               <Text style={styles.headerDate}>
-                {Date(book.released_date).substr(0, 16)}
+                {String(book.released_at).substr(0, 16)}
               </Text>
             </Body>
           </View>
@@ -60,13 +117,29 @@ class Detail extends Component {
             <View>
               <Text style={styles.detailText}>{book.desc}</Text>
               <View>
-                {book.status == 'Available' ? (
-                  <Button style={styles.actionRentButton}>
-                    <Text style={styles.actionButtonText}> Borrow </Text>
-                  </Button>
+                {this.state.user ? (
+                  book.status == 'Available' ? (
+                    <Button
+                      style={styles.actionRentButton}
+                      onPress={this.handleBorrow}>
+                      <Text style={styles.actionButtonText}> Borrow </Text>
+                    </Button>
+                  ) : history.length > 0 ? (
+                    <Button
+                      style={styles.actionReturnButton}
+                      onPress={this.handleReturn}>
+                      <Text style={styles.actionButtonText}> Return </Text>
+                    </Button>
+                  ) : (
+                    <Button style={styles.actionButton}>
+                      <Text style={styles.actionButtonText}>Out of Order</Text>
+                    </Button>
+                  )
                 ) : (
-                  <Button style={styles.actionReturnButton}>
-                    <Text style={styles.actionButtonText}> Return </Text>
+                  <Button
+                    style={styles.actionButton}
+                    onPress={() => this.props.navigation.navigate('Login')}>
+                    <Text style={styles.actionButtonText}>Sign In</Text>
                   </Button>
                 )}
               </View>
@@ -170,6 +243,19 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  actionButton: {
+    width: 164,
+    height: 39,
+    backgroundColor: 'red',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    marginVertical: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   actionButtonText: {
     fontFamily: 'Airbnb Cereal App',
     fontSize: 15,
@@ -181,6 +267,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return {books: state.books};
+  return {books: state.books, history: state.history};
 };
 export default connect(mapStateToProps)(Detail);

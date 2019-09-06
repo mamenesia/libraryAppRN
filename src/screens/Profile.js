@@ -9,12 +9,31 @@ import {
   ScrollView,
 } from 'react-native';
 import {Button} from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
+import decode from 'jwt-decode';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      token: '',
+    };
   }
+
+  componentDidMount = async () => {
+    let token = await AsyncStorage.getItem('token', (err, res) => {
+      if (!err) {
+        return res;
+      } else {
+        return null;
+      }
+    });
+    this.setState({token: token});
+    const user = decode(this.state.token);
+    this.setState({user: user});
+  };
   render() {
+    const {token, user} = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -36,31 +55,50 @@ class Profile extends Component {
           />
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>Mamenesia</Text>
-              <Text style={styles.info}>Casual User</Text>
+              <Text style={styles.name}>{user ? user.username : 'Guest'}</Text>
+              <Text style={styles.info}>
+                {token ? 'Registered User' : 'Free User'}
+              </Text>
               <Text style={styles.description}>
                 Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
                 electram expetendis, omittam deseruisse consequuntur ius an,
               </Text>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => this.props.navigation.navigate('Login')}>
-                  <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => this.props.navigation.navigate('Login')}>
-                  <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.donateContainer}>
-                <TouchableOpacity
-                  style={styles.donateButton}
-                  onPress={() => this.props.navigation.navigate('Profile')}>
-                  <Text style={styles.donateText}>Donate Book</Text>
-                </TouchableOpacity>
-              </View>
+              {token ? (
+                <View>
+                  <View style={styles.donateContainer}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={async () => {
+                        await AsyncStorage.removeItem('token');
+                        this.props.navigation.navigate('Login');
+                      }}>
+                      <Text style={styles.buttonText}>Logout</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.donateButton}
+                      onPress={() => this.props.navigation.navigate('Donate')}>
+                      <Text style={styles.donateText}>Donate Book</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ) : (
+                <View>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => this.props.navigation.navigate('Login')}>
+                      <Text style={styles.buttonText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() =>
+                        this.props.navigation.navigate('Register')
+                      }>
+                      <Text style={styles.buttonText}>Register</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
             </View>
           </View>
         </View>

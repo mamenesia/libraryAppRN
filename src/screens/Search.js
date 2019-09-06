@@ -13,9 +13,6 @@ import BookCard from '../components/BookCard';
 class Search extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   books: [],
-    // };
   }
 
   render() {
@@ -26,12 +23,18 @@ class Search extends Component {
     // console.log(books);
     return (
       <ScrollView>
-        <Text style={styles.title}>Genre Book</Text>
+        <Text style={styles.title}>Search for keyword: "{`${search}`}"</Text>
         <View style={styles.bookContainer}>
           {books.length > 0 ? (
             books.map((item, index) => {
               return (
-                <TouchableOpacity key={index}>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() =>
+                    this.props.navigation.navigate('Detail', {
+                      book_id: item.book_id,
+                    })
+                  }>
                   <BookCard title={item.title} imageUri={item.image_url} />
                 </TouchableOpacity>
               );
