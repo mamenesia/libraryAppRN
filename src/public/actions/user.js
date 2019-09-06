@@ -1,10 +1,10 @@
 import Axios from 'axios';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const login = (username, password) => {
   return {
     type: 'LOGIN_USER',
-    payload: Axios.post('http://192.168.37.2:8080/login', {
+    payload: Axios.post('http://192.168.56.1:8080/login', {
       username,
       password,
     })
@@ -24,7 +24,7 @@ export const login = (username, password) => {
 export const register = (username, email, password) => {
   return {
     type: 'REGISTER_USER',
-    payload: Axios.post('http://192.168.37.2:8080/register', {
+    payload: Axios.post('http://192.168.56.1:8080/register', {
       username,
       email,
       password,

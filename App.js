@@ -6,8 +6,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import {Button, Text, Icon, Footer, FooterTab} from 'native-base';
 
-// import {Provider} from 'react-redux';
-// import store from './src/public/store';
+import {Provider} from 'react-redux';
+import store from './src/public/store';
 import Home from './src/screens/Home';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
@@ -15,6 +15,7 @@ import Profile from './src/screens/Profile';
 import History from './src/screens/History';
 import Detail from './src/screens/Detail';
 import Genre from './src/screens/Genre';
+import Search from './src/screens/Search';
 
 const HomeStack = createStackNavigator(
   {
@@ -31,6 +32,7 @@ const HomeStack = createStackNavigator(
       },
     },
     Genre: {screen: Genre},
+    Search: {screen: Search},
   },
   {initialRouteName: 'Home'},
 );
@@ -66,7 +68,7 @@ const AppNavigator = createBottomTabNavigator(
     Profile: ProfileStack,
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'Home',
     tabBarPosition: 'bottom',
     activeColor: 'blue',
     inactiveColor: 'black',
@@ -110,9 +112,9 @@ const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
     return (
-      <AppContainer />
-      // <Provider store={store}>
-      // </Provider>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     );
   }
 }

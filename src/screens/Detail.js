@@ -8,20 +8,25 @@ import {
   ScrollView,
 } from 'react-native';
 import {Left, Body, Button, Icon, Title, Card, CardItem} from 'native-base';
+import {connect} from 'react-redux';
 
 class Detail extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const book_id = this.props.navigation.getParam('book_id');
+    const book = this.props.books.bookList.filter(
+      item => item.book_id == book_id,
+    )[0];
+    console.log(book);
     return (
       <SafeAreaView>
         <ScrollView>
           <Image
             style={styles.imageHeader}
             source={{
-              uri:
-                'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
+              uri: `${book.image_url}`,
             }}
           />
           <View span transparent>
@@ -33,8 +38,10 @@ class Detail extends Component {
               </Button>
             </Left>
             <Body style={styles.headerText}>
-              <Title style={styles.headerTitle}>The Promises</Title>
-              <Text style={styles.headerDate}>02-20-2020</Text>
+              <Title style={styles.headerTitle}>{book.title}</Title>
+              <Text style={styles.headerDate}>
+                {Date(book.released_date).substr(0, 16)}
+              </Text>
             </Body>
           </View>
           <View style={styles.cardBook}>
@@ -43,8 +50,7 @@ class Detail extends Component {
                 <Image
                   style={styles.cardBookImage}
                   source={{
-                    uri:
-                      'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
+                    uri: `${book.image_url}`,
                   }}
                 />
               </CardItem>
@@ -52,24 +58,17 @@ class Detail extends Component {
           </View>
           <View style={styles.detail}>
             <View>
-              <Text style={styles.detailText}>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat
-                sapiente nostrum unde architecto cumque totam accusamus. Maiores
-                ad itaque aspernatur quisquam. Ipsam, vitae ad. Beatae similique
-                vero aperiam vitae accusamus explicabo maxime veritatis sequi
-                assumenda sit! Nihil necessitatibus laudantium odit iure eos
-                repudiandae, pariatur sequi reprehenderit? Alias doloribus
-                quibusdam nostrum placeat, dolores delectus mollitia eos quis
-                hic cumque ipsam quaerat error dicta fugit quam fugiat at esse,
-                molestiae rerum voluptatibus, illo ullam laborum corporis nihil.
-                Quas, iure debitis exercitationem adipisci soluta amet? Quisquam
-                nesciunt nam, assumenda iure nobis voluptatum mollitia qui hic
-                doloribus unde quaerat, molestias iste cupiditate tempora. Ea?
-              </Text>
+              <Text style={styles.detailText}>{book.desc}</Text>
               <View>
-                <Button style={styles.actionButton}>
-                  <Text style={styles.actionButtonText}> Borrow </Text>
-                </Button>
+                {book.status == 'Available' ? (
+                  <Button style={styles.actionRentButton}>
+                    <Text style={styles.actionButtonText}> Borrow </Text>
+                  </Button>
+                ) : (
+                  <Button style={styles.actionReturnButton}>
+                    <Text style={styles.actionButtonText}> Return </Text>
+                  </Button>
+                )}
               </View>
             </View>
           </View>
@@ -82,10 +81,10 @@ class Detail extends Component {
 const styles = StyleSheet.create({
   imageHeader: {
     position: 'absolute',
-    top: 0,
+    top: -20,
     left: 0,
     width: '100%',
-    height: 280,
+    height: 300,
     borderRadius: 10,
     opacity: 0.7,
     backgroundColor: 'black',
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     // left: 10,
     // top: 200,
     marginTop: 220,
-    marginLeft: -200,
+    marginLeft: -180,
   },
   headerTitle: {
     fontFamily: 'Airbnb Cereal App',
@@ -145,10 +144,23 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     color: '#303031',
   },
-  actionButton: {
+  actionRentButton: {
     width: 164,
     height: 39,
     backgroundColor: '#F4CF5D',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    marginVertical: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  actionReturnButton: {
+    width: 164,
+    height: 39,
+    backgroundColor: '#0B0870',
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},
@@ -168,4 +180,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Detail;
+const mapStateToProps = state => {
+  return {books: state.books};
+};
+export default connect(mapStateToProps)(Detail);

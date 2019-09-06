@@ -11,7 +11,7 @@ import {
   Icon,
 } from 'native-base';
 import {connect} from 'react-redux';
-import {login} from '';
+import {login} from '../public/actions/user';
 
 class Login extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class Login extends Component {
     };
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleUsername = e => {
@@ -31,10 +32,13 @@ class Login extends Component {
     this.setState({password: e.target.value});
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    this.props.dispatch(login());
+    const {username, password} = this.state;
+    await this.props.dispatch(login(username, password));
   };
+
+  component;
   render() {
     return (
       <Container>
@@ -127,6 +131,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return {};
+  return {user: [state.username, state.password]};
 };
-export default Login;
+export default connect(mapStateToProps)(Login);

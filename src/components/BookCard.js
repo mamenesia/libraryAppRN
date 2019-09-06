@@ -11,13 +11,13 @@ export default class BookCard extends Component {
           <Image
             style={styles.cardBookImage}
             source={{
-              uri: this.props.imageUri,
+              uri: `${this.props.imageUri}`,
             }}
           />
         </CardItem>
         <CardItem>
           <Left>
-            <Text>{this.props.title}</Text>
+            <Text>{this.props.title.substr(0, 15)}...</Text>
           </Left>
         </CardItem>
         <CardItem style={styles.rating}>

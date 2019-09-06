@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 
 import BookCard from '../components/BookCard';
 
-class Genre extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     // this.state = {
@@ -19,20 +19,26 @@ class Genre extends Component {
   }
 
   render() {
-    const genre = this.props.navigation.getParam('genre');
-    const books = this.props.books.bookList.filter(book => book.genre == genre);
+    const search = this.props.navigation.getParam('search');
+    const books = this.props.books.bookList.filter(book =>
+      book.title.includes(search),
+    );
     // console.log(books);
     return (
       <ScrollView>
-        <Text style={styles.title}>{genre}</Text>
+        <Text style={styles.title}>Genre Book</Text>
         <View style={styles.bookContainer}>
-          {books.map((item, index) => {
-            return (
-              <TouchableOpacity key={index}>
-                <BookCard title={item.title} imageUri={item.image_url} />
-              </TouchableOpacity>
-            );
-          })}
+          {books.length > 0 ? (
+            books.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}>
+                  <BookCard title={item.title} imageUri={item.image_url} />
+                </TouchableOpacity>
+              );
+            })
+          ) : (
+            <Text>Not Found</Text>
+          )}
         </View>
       </ScrollView>
     );
@@ -72,4 +78,4 @@ const mapStateToProps = state => {
   return {books: state.books};
 };
 
-export default connect(mapStateToProps)(Genre);
+export default connect(mapStateToProps)(Search);

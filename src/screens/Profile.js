@@ -57,7 +57,7 @@ class Profile extends Component {
               <View style={styles.donateContainer}>
                 <TouchableOpacity
                   style={styles.donateButton}
-                  onPress={() => this.props.navigation.navigate('Login')}>
+                  onPress={() => this.props.navigation.navigate('Profile')}>
                   <Text style={styles.donateText}>Donate Book</Text>
                 </TouchableOpacity>
               </View>

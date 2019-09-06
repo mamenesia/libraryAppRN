@@ -10,15 +10,20 @@ import {
 } from 'react-native';
 import {
   Container,
+  Button,
   Item,
   Input,
   Icon,
   Title,
+  Form,
   Body,
   Card,
   CardItem,
 } from 'native-base';
-// import {Rating} from 'react-native-ratings';
+
+import {connect} from 'react-redux';
+import {getBooks} from '../public/actions/books';
+import {getGenres} from '../public/actions/genres';
 
 import GenreCard from '../components/GenreCard';
 import BookCard from '../components/BookCard';
@@ -26,8 +31,55 @@ import BookCard from '../components/BookCard';
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      books: [],
+      genres: [],
+      search: '',
+    };
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount = async () => {
+    await this.props.dispatch(
+      getBooks(null, 1, 'released_at', 'DESC', null, null),
+    );
+    this.setState({books: this.props.books.bookList});
+    await this.props.dispatch(getGenres());
+    this.setState({genres: this.props.genres.genreList});
+  };
+
+  handleSearch = e => {
+    this.setState({search: e.target.value});
+  };
+
+  handleSubmit = e => {
+    e.preventDefault;
+    this.props.navitagion.navigate('Search', {search: this.state.search});
+  };
   render() {
+    const {books, genres} = this.state;
+    const colors = [
+      '#28BFDB',
+      '#9AF833',
+      '#9A2B6B',
+      '#5B8B89',
+      '#3DF504',
+      '#5E21BF',
+      '#D91780',
+      '#0B0870',
+      '#09F89A',
+    ];
+    const icons = [
+      'http://www.htyweb.org/wp-content/uploads/2016/07/education-icon.png',
+      'https://cdn1.iconfinder.com/data/icons/inficons-set-4/1000/diary-512.png',
+      'https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-and-shapes-3/177800/110-512.png',
+      'https://cdn1.iconfinder.com/data/icons/business-productivity-set-2/100/candidate_biography_cv_job_recruitment_hr-512.png',
+      'https://static.thenounproject.com/png/11573-200.png',
+      'https://www.pinclipart.com/picdir/middle/361-3610055_technology-icon-logo-icon-information-technology-clipart.png',
+      'https://cdn3.iconfinder.com/data/icons/business-motivation-skills-2/96/Untitled-1_solution_provider-512.png',
+      'https://cdn2.iconfinder.com/data/icons/flat-business-icon/600/shares-company-finance-512.png',
+    ];
     return (
       <SafeAreaView>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -35,28 +87,44 @@ class Home extends Component {
             <Body style={styles.brand}>
               <Title style={styles.headerText}>Library App</Title>
             </Body>
-            <Item rounded style={styles.searchBar}>
-              <Icon name="ios-search" />
-              <Input placeholder="Search" />
-            </Item>
+            <Form onSubmit={() => this.handleSubmit}>
+              <Item rounded style={styles.searchBar}>
+                <Button transparent onPress={() => this.handleSubmit}>
+                  <Icon name="ios-search" />
+                </Button>
+                <Input
+                  placeholder="Search"
+                  onChangeText={() => this.handleSearch}
+                />
+              </Item>
+            </Form>
           </Container>
           <ScrollView
             horizontal={true}
             style={styles.genreContainer}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}>
-            <TouchableOpacity>
-              <GenreCard name="Novel" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <GenreCard name="Action" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <GenreCard name="Biography" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <GenreCard name="Motivation" />
-            </TouchableOpacity>
+            {genres ? (
+              genres.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() =>
+                      this.props.navigation.navigate('Genre', {
+                        genre: item.genre,
+                      })
+                    }>
+                    <GenreCard
+                      name={item.genre}
+                      color={colors[index]}
+                      iconUrl={icons[index]}
+                    />
+                  </TouchableOpacity>
+                );
+              })
+            ) : (
+              <Text>Loading...</Text>
+            )}
           </ScrollView>
           <Container style={styles.sectionContainer}>
             <Text style={styles.sectionText}>Popular Books</Text>
@@ -66,9 +134,14 @@ class Home extends Component {
                   <Image
                     source={{
                       uri:
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7PcRnQpvqW4NtOcaaR_R-lHFngIrR27o4e-o_6AlROkGR9W8kVA',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_2k4GSxqQCVA1qpyhaC7AFwBf1NlsyM6S2d-wQYcvs-H1zT6DQ',
                     }}
-                    style={{height: 200, width: null, flex: 1}}
+                    style={{
+                      borderRadius: 10,
+                      height: 200,
+                      width: null,
+                      flex: 1,
+                    }}
                   />
                 </CardItem>
               </Card>
@@ -78,28 +151,87 @@ class Home extends Component {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}>
-              <TouchableOpacity>
-                <BookCard
-                  title="Drowning"
-                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <BookCard
-                  title="Drowning"
-                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <BookCard
-                  title="Drowning"
-                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
-                />
-              </TouchableOpacity>
+              {books ? (
+                books
+                  .filter(book => book.status == 'Not Available')
+                  .map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        ke={index}
+                        onPress={() =>
+                          this.props.navigation.navigate('Detail', {
+                            book_id: item.book_id,
+                          })
+                        }>
+                        <BookCard
+                          title={item.title}
+                          imageUri={item.image_url}
+                        />
+                      </TouchableOpacity>
+                    );
+                  })
+              ) : (
+                <Text>Loading...</Text>
+              )}
             </ScrollView>
           </Container>
-          <Container style={styles.sectionContainer}>
-            <Text style={styles.sectionText}>What's News ?</Text>
+          <Container
+            style={[styles.sectionContainer, {marginTop: -150, height: 300}]}>
+            <Text style={styles.sectionText}>New Release</Text>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}>
+              {books ? (
+                books.slice(0, 6).map((item, index) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() =>
+                        this.props.navigation.navigate('Detail', {
+                          book_id: item.book_id,
+                        })
+                      }>
+                      <BookCard title={item.title} imageUri={item.image_url} />
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <Text>Loading...</Text>
+              )}
+            </ScrollView>
+          </Container>
+          <Container
+            style={[styles.sectionContainer, {marginTop: 20, height: 300}]}>
+            <Text style={styles.sectionText}>Available Book</Text>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}>
+              {books ? (
+                books
+                  .filter(book => book.status == 'Available')
+                  .slice(0, 6)
+                  .map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        ke={index}
+                        onPress={() =>
+                          this.props.navigation.navigate('Detail', {
+                            book_id: item.book_id,
+                          })
+                        }>
+                        <BookCard
+                          title={item.title}
+                          imageUri={item.image_url}
+                        />
+                      </TouchableOpacity>
+                    );
+                  })
+              ) : (
+                <Text>Loading...</Text>
+              )}
+            </ScrollView>
           </Container>
         </ScrollView>
       </SafeAreaView>
@@ -153,4 +285,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const mapStateToProps = state => {
+  return {books: state.books, genres: state.genres};
+};
+
+export default connect(mapStateToProps)(Home);
