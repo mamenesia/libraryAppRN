@@ -10,6 +10,8 @@ import {
   Button,
   Icon,
 } from 'native-base';
+import {connect} from 'react-redux';
+import {login} from '';
 
 class Login extends Component {
   constructor(props) {
@@ -19,10 +21,19 @@ class Login extends Component {
       password: '',
     };
     this.handleUsername = this.handleUsername.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
   }
 
   handleUsername = e => {
     this.setState({username: e.target.value});
+  };
+  handlePassword = e => {
+    this.setState({password: e.target.value});
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.dispatch(login());
   };
   render() {
     return (
@@ -36,11 +47,15 @@ class Login extends Component {
             </Item>
             <Item floatingLabel last>
               <Label>Password</Label>
-              <Input />
+              <Input onChangeText={() => this.handlePassword} />
             </Item>
           </Form>
         </Content>
-        <Button rounded dark style={styles.signInButton}>
+        <Button
+          rounded
+          dark
+          style={styles.signInButton}
+          onPress={() => this.handleSubmit}>
           <Icon type="FontAwesome" name="arrow-right" />
         </Button>
         <Text
@@ -111,4 +126,7 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = state => {
+  return {};
+};
 export default Login;

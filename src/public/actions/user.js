@@ -4,22 +4,30 @@ import {AsyncStorage} from 'react-native';
 export const login = (username, password) => {
   return {
     type: 'LOGIN_USER',
-    payload: Axios.post(
-      'https://mysterious-badlands-23204.herokuapp.com/login',
-      {
-        username,
-        password,
-      },
-    )
+    payload: Axios.post('http://192.168.37.2:8080/login', {
+      username,
+      password,
+    })
       .then(res => {
         if (res.data.status === 200) {
           const token = res.data.token;
           AsyncStorage.setItem('token', token);
-          this.props.navigation.navigate('Home');
+          setInterval(() => this.props.navigation.navigate('Home'), 2000);
         } else {
-          this.props.navigation.navigate('Register');
+          setInterval(() => this.props.navigation.navigate('Login'), 2000);
         }
       })
       .catch(err => console.log(err)),
+  };
+};
+
+export const register = (username, email, password) => {
+  return {
+    type: 'REGISTER_USER',
+    payload: Axios.post('http://192.168.37.2:8080/register', {
+      username,
+      email,
+      password,
+    }),
   };
 };
