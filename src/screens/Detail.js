@@ -7,18 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Button,
-  Icon,
-  Title,
-  Card,
-  CardItem,
-  Text as NbText,
-} from 'native-base';
+import {Left, Body, Button, Icon, Title, Card, CardItem} from 'native-base';
 
 class Detail extends Component {
   constructor(props) {
@@ -40,7 +29,7 @@ class Detail extends Component {
               <Button
                 transparent
                 onPress={() => this.props.navigation.goBack()}>
-                <Icon style={{color: 'white'}} name="arrow-back" />
+                <Icon style={styles.icon} name="arrow-back" />
               </Button>
             </Left>
             <Body style={styles.headerText}>
@@ -106,6 +95,7 @@ const styles = StyleSheet.create({
     left: 19,
     top: 20,
   },
+  icon: {color: 'white'},
   headerText: {
     // position: 'absolute',
     width: 197,
@@ -145,7 +135,7 @@ const styles = StyleSheet.create({
     // left: 29,
     // right: 29,
     // top: 350,
-    marginTop: 100,
+    marginTop: 90,
     marginHorizontal: 29,
   },
   detailText: {

@@ -17,11 +17,11 @@ import {
   Body,
   Card,
   CardItem,
-  Left,
 } from 'native-base';
-import {Rating} from 'react-native-ratings';
+// import {Rating} from 'react-native-ratings';
 
 import GenreCard from '../components/GenreCard';
+import BookCard from '../components/BookCard';
 
 class Home extends Component {
   constructor(props) {
@@ -58,155 +58,48 @@ class Home extends Component {
               <GenreCard name="Motivation" />
             </TouchableOpacity>
           </ScrollView>
-          <Container style={styles.popularContainer}>
-            <Text style={styles.popular}>Popular Books</Text>
-            <View style={{flex: 1, height: 250}}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}>
-                <TouchableOpacity>
-                  <Card style={styles.cardBook}>
-                    <CardItem cardBody>
-                      <Image
-                        style={styles.cardBookImage}
-                        source={{
-                          uri:
-                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                        }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Left>
-                        <Text>Drowning</Text>
-                      </Left>
-                    </CardItem>
-                    <CardItem style={styles.rating}>
-                      <Left>
-                        <Rating
-                          type="star"
-                          startingValue={5}
-                          ratingCount={5}
-                          imageSize={13}
-                        />
-                      </Left>
-                    </CardItem>
-                  </Card>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Card style={styles.cardBook}>
-                    <CardItem cardBody>
-                      <Image
-                        style={styles.cardBookImage}
-                        source={{
-                          uri:
-                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                        }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Left>
-                        <Text>Drowning</Text>
-                      </Left>
-                    </CardItem>
-                    <CardItem style={styles.rating}>
-                      <Left>
-                        <Rating
-                          type="star"
-                          startingValue={5}
-                          ratingCount={5}
-                          imageSize={13}
-                        />
-                      </Left>
-                    </CardItem>
-                  </Card>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Card style={styles.cardBook}>
-                    <CardItem cardBody>
-                      <Image
-                        style={styles.cardBookImage}
-                        source={{
-                          uri:
-                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                        }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Left>
-                        <Text>Drowning</Text>
-                      </Left>
-                    </CardItem>
-                    <CardItem style={styles.rating}>
-                      <Left>
-                        <Rating
-                          type="star"
-                          startingValue={5}
-                          ratingCount={5}
-                          imageSize={13}
-                        />
-                      </Left>
-                    </CardItem>
-                  </Card>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Card style={styles.cardBook}>
-                    <CardItem cardBody>
-                      <Image
-                        style={styles.cardBookImage}
-                        source={{
-                          uri:
-                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                        }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Left>
-                        <Text>Drowning</Text>
-                      </Left>
-                    </CardItem>
-                    <CardItem style={styles.rating}>
-                      <Left>
-                        <Rating
-                          type="star"
-                          startingValue={5}
-                          ratingCount={5}
-                          imageSize={13}
-                        />
-                      </Left>
-                    </CardItem>
-                  </Card>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Card style={styles.cardBook}>
-                    <CardItem cardBody>
-                      <Image
-                        style={styles.cardBookImage}
-                        source={{
-                          uri:
-                            'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                        }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Left>
-                        <Text>Drowning</Text>
-                      </Left>
-                    </CardItem>
-                    <CardItem style={styles.rating}>
-                      <Left>
-                        <Rating
-                          type="star"
-                          startingValue={5}
-                          ratingCount={5}
-                          imageSize={13}
-                        />
-                      </Left>
-                    </CardItem>
-                  </Card>
-                </TouchableOpacity>
-              </ScrollView>
+          <Container style={styles.sectionContainer}>
+            <Text style={styles.sectionText}>Popular Books</Text>
+            <View>
+              <Card>
+                <CardItem cardBody>
+                  <Image
+                    source={{
+                      uri:
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7PcRnQpvqW4NtOcaaR_R-lHFngIrR27o4e-o_6AlROkGR9W8kVA',
+                    }}
+                    style={{height: 200, width: null, flex: 1}}
+                  />
+                </CardItem>
+              </Card>
             </View>
+
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}>
+              <TouchableOpacity>
+                <BookCard
+                  title="Drowning"
+                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <BookCard
+                  title="Drowning"
+                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <BookCard
+                  title="Drowning"
+                  imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+                />
+              </TouchableOpacity>
+            </ScrollView>
+          </Container>
+          <Container style={styles.sectionContainer}>
+            <Text style={styles.sectionText}>What's News ?</Text>
           </Container>
         </ScrollView>
       </SafeAreaView>
@@ -248,40 +141,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 29,
   },
-  popularContainer: {
+  sectionContainer: {
     marginHorizontal: 29,
   },
-  popular: {
+  sectionText: {
     fontFamily: 'Airbnb Cereal App',
     fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 23,
     color: '#303031',
-  },
-  bookContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: '100%',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    // paddingRight: 20,
-  },
-  cardBook: {
-    marginRight: 28,
-    borderRadius: 10,
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
-    shadowColor: '#2c2c2c',
-    shadowOffset: {height: 0, width: 4},
-  },
-  cardBookImage: {
-    width: 145,
-    height: 180,
-    borderRadius: 5,
-  },
-  rating: {
-    marginTop: -15,
   },
 });
 

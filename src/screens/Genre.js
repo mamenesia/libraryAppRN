@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import {Card, CardItem, Left} from 'native-base';
-import {Rating} from 'react-native-ratings';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+
+import BookCard from '../components/BookCard';
 
 class Genre extends Component {
   constructor(props) {
@@ -12,266 +18,24 @@ class Genre extends Component {
       <ScrollView>
         <Text style={styles.title}>Genre Book</Text>
         <View style={styles.bookContainer}>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>The Beekeeper</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>Drowning</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>The Beekeeper</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>Drowning</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>The Beekeeper</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>Drowning</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>The Beekeeper</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>Drowning</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/51X1itcOPNL._SX332_BO1,204,203,200_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>The Beekeeper</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem cardBody>
-              <Image
-                style={styles.cardBookImage}
-                source={{
-                  uri:
-                    'https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg',
-                }}
-              />
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Text>Drowning</Text>
-              </Left>
-            </CardItem>
-            <CardItem style={styles.rating}>
-              <Left>
-                <Rating
-                  type="star"
-                  startingValue={5}
-                  ratingCount={5}
-                  imageSize={13}
-                />
-              </Left>
-            </CardItem>
-          </Card>
+          <TouchableOpacity>
+            <BookCard
+              title="Drowning"
+              imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <BookCard
+              title="Drowning"
+              imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <BookCard
+              title="Drowning"
+              imageUri="https://images-na.ssl-images-amazon.com/images/I/81c3IwhrRtL.__BG0,0,0,0_FMpng_AC_UL270_SR180,270_.jpg"
+            />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );

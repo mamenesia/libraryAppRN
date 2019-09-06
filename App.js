@@ -64,11 +64,9 @@ const AppNavigator = createBottomTabNavigator(
     Home: HomeStack,
     History: {screen: History},
     Profile: ProfileStack,
-    Genre: Genre,
-    Detail: Detail,
   },
   {
-    initialRouteName: 'Detail',
+    initialRouteName: 'Profile',
     tabBarPosition: 'bottom',
     activeColor: 'blue',
     inactiveColor: 'black',
@@ -99,22 +97,6 @@ const AppNavigator = createBottomTabNavigator(
               onPress={() => props.navigation.navigate('Profile')}>
               <Icon type="FontAwesome" name="user-circle" />
               <Text>Profile</Text>
-            </Button>
-            <Button
-              light
-              vertical
-              // active={props.navigationState.index == 2}
-              onPress={() => props.navigation.navigate('Genre')}>
-              <Icon type="FontAwesome" name="user-circle" />
-              <Text>Genre</Text>
-            </Button>
-            <Button
-              light
-              vertical
-              // active={props.navigationState.index == 2}
-              onPress={() => props.navigation.navigate('Detail')}>
-              <Icon type="FontAwesome" name="user-circle" />
-              <Text>Detail</Text>
             </Button>
           </FooterTab>
         </Footer>

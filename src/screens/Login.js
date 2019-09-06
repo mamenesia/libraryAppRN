@@ -18,7 +18,12 @@ class Login extends Component {
       username: '',
       password: '',
     };
+    this.handleUsername = this.handleUsername.bind(this);
   }
+
+  handleUsername = e => {
+    this.setState({username: e.target.value});
+  };
   render() {
     return (
       <Container>
@@ -27,7 +32,7 @@ class Login extends Component {
           <Form>
             <Item floatingLabel>
               <Label>Username</Label>
-              <Input />
+              <Input onChangeText={() => this.handleUsername} />
             </Item>
             <Item floatingLabel last>
               <Label>Password</Label>
