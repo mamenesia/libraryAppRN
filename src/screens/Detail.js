@@ -6,6 +6,8 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Left, Body, Button, Icon, Title, Card, CardItem} from 'native-base';
 import {connect} from 'react-redux';
@@ -61,6 +63,18 @@ class Detail extends Component {
     const user_id = this.state.user.id;
     const book_id = this.state.book_id;
     await this.props.dispatch(rentBook(book_id, user_id));
+    Alert.alert(
+      'Success!',
+      'Book Borrowed',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.navigation.navigate('History'),
+        },
+      ],
+      {cancelable: false},
+    );
+
     // this.props.navigation.navigate('Detail', {book_id: book_id});
   };
   handleReturn = async () => {
@@ -68,6 +82,17 @@ class Detail extends Component {
     const book_id = this.state.book_id;
     await this.props.dispatch(returnBook(book_id, user_id));
     // this.props.navigation.navigate('Detail', {book_id: book_id});
+    Alert.alert(
+      'Success!',
+      'Book Borrowed',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.navigation.navigate('History'),
+        },
+      ],
+      {cancelable: false},
+    );
   };
 
   render() {
@@ -88,11 +113,11 @@ class Detail extends Component {
           />
           <View span transparent>
             <Left style={styles.backButton}>
-              <Button
+              <TouchableOpacity
                 transparent
                 onPress={() => this.props.navigation.goBack()}>
                 <Icon style={styles.icon} name="arrow-back" />
-              </Button>
+              </TouchableOpacity>
             </Left>
             <Body style={styles.headerText}>
               <Title style={styles.headerTitle}>{book.title}</Title>
@@ -119,28 +144,34 @@ class Detail extends Component {
               <View>
                 {this.state.user ? (
                   book.status == 'Available' ? (
-                    <Button
-                      style={styles.actionRentButton}
-                      onPress={this.handleBorrow}>
-                      <Text style={styles.actionButtonText}> Borrow </Text>
-                    </Button>
+                    <TouchableOpacity>
+                      <Button
+                        style={styles.actionRentButton}
+                        onPress={this.handleBorrow}>
+                        <Text style={styles.actionButtonText}> Borrow </Text>
+                      </Button>
+                    </TouchableOpacity>
                   ) : history.length > 0 ? (
-                    <Button
-                      style={styles.actionReturnButton}
-                      onPress={this.handleReturn}>
-                      <Text style={styles.actionButtonText}> Return </Text>
-                    </Button>
+                    <TouchableOpacity>
+                      <Button
+                        style={styles.actionReturnButton}
+                        onPress={this.handleReturn}>
+                        <Text style={styles.actionButtonText}> Return </Text>
+                      </Button>
+                    </TouchableOpacity>
                   ) : (
                     <Button style={styles.actionButton}>
-                      <Text style={styles.actionButtonText}>Out of Order</Text>
+                      <Text style={styles.actionButtonText}>Not Available</Text>
                     </Button>
                   )
                 ) : (
-                  <Button
-                    style={styles.actionButton}
-                    onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text style={styles.actionButtonText}>Sign In</Text>
-                  </Button>
+                  <TouchableOpacity>
+                    <Button
+                      style={styles.actionButton}
+                      onPress={() => this.props.navigation.navigate('Login')}>
+                      <Text style={styles.actionButtonText}>Sign In</Text>
+                    </Button>
+                  </TouchableOpacity>
                 )}
               </View>
             </View>

@@ -33,7 +33,7 @@ class Register extends Component {
             [
               {
                 text: 'OK',
-                onPress: () => this.props.navigation.native('Login'),
+                onPress: () => this.props.navigation.navigate('Login'),
               },
             ],
             {cancelable: false},
