@@ -66,7 +66,7 @@ class Login extends Component {
                 <Label>Username</Label>
                 <Input
                   required
-                  autoFocus={true}
+                  // autoFocus={true}
                   onChangeText={text => this.setState({username: text})}
                   value={this.state.username}
                 />

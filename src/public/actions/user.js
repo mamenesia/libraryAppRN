@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+// import {withNavigation} from 'react-navigation';
 
 export const login = (username, password) => {
   return {
@@ -20,12 +21,20 @@ export const login = (username, password) => {
         Alert.alert(
           'Success!',
           res.data.message,
-          [{text: 'OK', onPress: () => this.props.navigation.navigate('Home')}],
-          {cancelable: false},
+          [
+            {
+              text: 'OK',
+              onPress: () =>
+                Alert.alert('Hey, User', 'Please go to home with tab below'), //this.props.navigation.navigate('Home')
+            },
+          ],
+          {
+            cancelable: false,
+          },
         );
       } else {
         Alert.alert('Failed!', res.data.message);
-        Alert.alert('Failed!', 'Username is does not exist');
+        // Alert.alert('Failed!', 'Username is does not exist');
       }
     }),
   };
@@ -41,6 +50,28 @@ export const register = (username, email, password) => {
         email,
         password,
       },
-    ),
+    ).then(res => {
+      console.log(res);
+      if (res.data.status === 200) {
+        Alert.alert('Success!', res.data.message);
+        Alert.alert(
+          'Success!',
+          res.data.message,
+          [
+            {
+              text: 'OK',
+              onPress: () =>
+                Alert.alert('Hey New User', 'Press login button left below'), //this.props.navigation.goBack(),
+            },
+          ],
+          {
+            cancelable: false,
+          },
+        );
+      } else {
+        Alert.alert('Failed!', res.data.message);
+        // Alert.alert('Failed!', 'Username is does not exist');
+      }
+    }),
   };
 };

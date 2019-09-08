@@ -123,7 +123,7 @@ class Home extends Component {
           </ScrollView>
           <Container style={styles.sectionContainer}>
             <Text style={styles.sectionText}>Popular Books</Text>
-            <View>
+            <View style={{marginVertical: 10}}>
               <Card>
                 <CardItem cardBody>
                   <Image
@@ -171,7 +171,7 @@ class Home extends Component {
             </ScrollView>
           </Container>
           <Container
-            style={[styles.sectionContainer, {marginTop: -150, height: 300}]}>
+            style={[styles.sectionContainer, {marginTop: -100, height: 300}]}>
             <Text style={styles.sectionText}>New Release</Text>
             <ScrollView
               horizontal={true}
@@ -197,7 +197,7 @@ class Home extends Component {
             </ScrollView>
           </Container>
           <Container
-            style={[styles.sectionContainer, {marginTop: 20, height: 300}]}>
+            style={[styles.sectionContainer, {marginTop: 0, height: 300}]}>
             <Text style={styles.sectionText}>Available Book</Text>
             <ScrollView
               horizontal={true}

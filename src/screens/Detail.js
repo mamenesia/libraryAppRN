@@ -84,7 +84,7 @@ class Detail extends Component {
     // this.props.navigation.navigate('Detail', {book_id: book_id});
     Alert.alert(
       'Success!',
-      'Book Borrowed',
+      'Book Returned',
       [
         {
           text: 'OK',

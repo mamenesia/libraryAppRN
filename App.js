@@ -16,6 +16,7 @@ import History from './src/screens/History';
 import Detail from './src/screens/Detail';
 import Genre from './src/screens/Genre';
 import Search from './src/screens/Search';
+import Donate from './src/screens/Donate';
 
 const HomeStack = createStackNavigator(
   {
@@ -57,6 +58,7 @@ const ProfileStack = createStackNavigator(
         header: null,
       },
     },
+    Donate: {screen: Donate},
   },
   {initialRouteName: 'Profile'},
 );

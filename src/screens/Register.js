@@ -24,28 +24,27 @@ class Register extends Component {
 
   handleSubmit = async () => {
     const {username, email, password} = this.state;
-    await this.props
-      .dispatch(register(username, email, password))
-      .then(res => {
-        if (res.action.payload.data.status == 200) {
-          Alert.alert(
-            `${res.action.payload.data.message}`,
-            [
-              {
-                text: 'OK',
-                onPress: () => this.props.navigation.navigate('Login'),
-              },
-            ],
-            {cancelable: false},
-          );
-        } else {
-          this.setState({username: '', email: '', password: ''});
-          Alert.alert(`${res.action.payload.data.message}`);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    await this.props.dispatch(register(username, email, password));
+    //     .then(res => {
+    //       if (res.action.payload.data.status == 200) {
+    //         Alert.alert(
+    //           `${res.action.payload.data.message}`,
+    //           [
+    //             {
+    //               text: 'OK',
+    //               onPress: () => this.props.navigation.navigate('Login'),
+    //             },
+    //           ],
+    //           {cancelable: false},
+    //         );
+    //       } else {
+    //         this.setState({username: '', email: '', password: ''});
+    //         Alert.alert(`${res.action.payload.data.message}`);
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
   };
   render() {
     return (
@@ -57,7 +56,8 @@ class Register extends Component {
               <Item floatingLabel>
                 <Label>Username</Label>
                 <Input
-                  autoFocus={true}
+                  required
+                  // autoFocus={true}
                   onChangeText={text => this.setState({username: text})}
                   value={this.state.username}
                 />
@@ -65,7 +65,8 @@ class Register extends Component {
               <Item floatingLabel>
                 <Label>Email</Label>
                 <Input
-                  autoFocus={true}
+                  // autoFocus={true}
+                  required
                   onChangeText={text => this.setState({email: text})}
                   value={this.state.email}
                 />
@@ -73,6 +74,7 @@ class Register extends Component {
               <Item floatingLabel last>
                 <Label>Password</Label>
                 <Input
+                  required
                   secureTextEntry={true}
                   onChangeText={text =>
                     this.setState({

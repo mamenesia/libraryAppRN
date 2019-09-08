@@ -5,7 +5,7 @@ export default class Donate extends Component {
   render() {
     return (
       <View style={styles.screen}>
-        <Text style={styles.notice}>Donate Secton is supposed!</Text>
+        <Text style={styles.notice}>DONATE SCREEN!</Text>
       </View>
     );
   }
