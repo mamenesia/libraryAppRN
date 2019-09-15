@@ -9,10 +9,10 @@
 
 ## Introduction
 [![React Native](https://img.shields.io/badge/react%20native-v0.60.5-blue)](https://facebook.github.io/react-native/)
-![Native Base](https://img.shields.io/badge/native%base-v2.12.6-orange)
+![Native Base](https://img.shields.io/badge/native%20base-v2.12.6-orange)
 ![Redux](https://img.shields.io/badge/redux-v4.0.4-green)
 ![Axios](https://img.shields.io/badge/axios-v0.19.0-brightgreen)
-![React Redux](https://img.shields.io/badge/react%redux-v7.1.1-yellowgreen)
+![React Redux](https://img.shields.io/badge/react%20redux-v7.1.1-yellowgreen)
 
 <p align='justify'>LibraryApp is an Library Application which enable user to see various of books with different genre and enable user to rent/return the book.</p>
 
