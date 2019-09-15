@@ -14,7 +14,7 @@
 ![Axios](https://img.shields.io/badge/axios-v0.19.0-brightgreen)
 ![React Redux](https://img.shields.io/badge/react%20redux-v7.1.1-yellowgreen)
 
-<p align='justify'>LibraryApp is an Library Application which enable user to see various of books with different genre and enable user to rent/return the book.</p>
+<p align='justify'>LibraryApp is an Library Application which enable user to see various books with different genres and enable user to rent/return the book.</p>
 
 ## Requirements
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
